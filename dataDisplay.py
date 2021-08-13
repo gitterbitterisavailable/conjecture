@@ -1,5 +1,6 @@
 import tkinter as tk
 import conjecture
+from turtle import *
 from tkinter.constants import E, NW, S
 
 class Application(tk.Frame):
@@ -23,7 +24,7 @@ class Application(tk.Frame):
         self.quit = tk.Button(self, text="QUIT", fg="red",command=self.master.destroy,bd=10)
         self.quit.grid(sticky=NW)
 
-#___________________________
+    #___________________________
  #input widget
 
         self.userinput = tk.Entry(self,bd=10)
@@ -37,27 +38,48 @@ class Application(tk.Frame):
         self.userinput.grid(sticky=S)
 
         self.contents = tk.StringVar()
+        self.contentsInt = tk.IntVar() 
         # Set it to some value.
-        self.contents.set("press enter to confirm entry")
+        self.contents.set("enterTOstart")
+     
         # Tell the entry widget to watch this variable.
         self.userinput["textvariable"] = self.contents      
+        
+        
+        
+
+
+ #turtleCanvas widget
+     
+        canvaswid = 500 
+        canvashi = 500 
+        fac = tk.Canvas(self,width=canvaswid,height=canvashi)
+        fac.grid(stick=E)
+        self.turd = RawTurtle(fac)
+        self.turd.right(10) 
+        
 
     def listen(self,event):
         c = int(self.contents.get())
         d = list(conjecture.collatz(c))
-        
+
         print(d[0])
-        
+        self.turd.right(d[0])    
         
 
 
-#__________________________
+           
+
+    #__________________________
 
         # hi function
     def say_hi(self):
         print("hi")
 
- 
+        
+         
+
+
 
        
 
