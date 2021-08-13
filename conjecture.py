@@ -32,5 +32,8 @@ def collatz(a):
     return b
 
 
+
+
+
 # with open("output.txt", "a") as f:
 #     f.writelines(", ".join(str(e) for e in b))

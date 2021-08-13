@@ -1,7 +1,7 @@
 import tkinter as tk
 import conjecture
 from turtle import *
-from tkinter.constants import E, NW, S
+from tkinter.constants import E, NW, S,W
 
 class Application(tk.Frame):
     def __init__(self, master=None):
@@ -14,15 +14,21 @@ class Application(tk.Frame):
     
 
     def create_widgets(self):
-        #hi widget
-        self.hi_there = tk.Button(self)
-        self.hi_there["text"] = "Collatz Conjecture\nVisual Representation\n(confirm input not really)"
-        self.hi_there["command"] = self.say_hi
-        self.hi_there.grid(sticky=E,ipadx=10,ipady=5)
+        #resetall pen widget
+        self.restall = tk.Button(self)
+        self.restall["text"] = "reset drawing"
+        self.restall["command"] = self.resetALLturd
+        self.restall.grid(row =2,sticky=W,ipadx=10,ipady=5)
+
+        self.resetTurtle = tk.Button(self)
+        self.resetTurtle["text"] = "reset to redraw \n (will auto draw input number)"
+        self.resetTurtle["command"] = self.resetTurd
+        self.resetTurtle.grid(row = 2,ipadx=10,ipady=5)
+
 
         #quit widget
-        self.quit = tk.Button(self, text="QUIT", fg="red",command=self.master.destroy,bd=10)
-        self.quit.grid(sticky=NW)
+        self.quit = tk.Button(self, text="QUIT", fg="red",command=self.master.destroy,bd=5)
+        self.quit.grid(row=1,sticky=W)
 
     #___________________________
  #input widget
@@ -56,7 +62,8 @@ class Application(tk.Frame):
         fac = tk.Canvas(self,width=canvaswid,height=canvashi)
         fac.grid(stick=E)
         self.turd = RawTurtle(fac)
-        self.turd.right(10) 
+        self.turd.right(0)
+        self.turd.pen(pensize=5) 
         
 
     def listen(self,event):
@@ -64,18 +71,51 @@ class Application(tk.Frame):
         d = list(conjecture.collatz(c))
 
         print(d[0])
-        self.turd.right(d[0])    
+        self.turd.pendown()
+
+        for element in d:
+            self.turd.right(element)
+            self.turd.fd(element)
+
+            # if element == len(d):
+            #     self.turd.penup()
+            #     self.turd.setpos(0,0) 
+            #     self.turd.heading()   
         
 
 
            
 
     #__________________________
+    
+        # reset functions
+    def resetALLturd(self):
+        currentAngle = float(self.turd.heading())
+        print("reset starting")
+        self.turd.penup()
+        self.turd.setpos(0,0)
+        self.turd.right(currentAngle)
+        self.turd.clear()
+        
 
-        # hi function
-    def say_hi(self):
-        print("hi")
 
+    def resetTurd(self):
+        currentAngle = float(self.turd.heading())
+        print("reset2 starting")
+        self.turd.penup()
+        self.turd.setpos(0,0)
+        self.turd.right(currentAngle)
+        #redraw process
+        c = int(self.contents.get())
+        d = list(conjecture.collatz(c))
+
+        print(d[0])
+        self.turd.pendown()
+
+        for element in d:
+            self.turd.right(element)
+            self.turd.fd(element)  
+        
         
          
 
