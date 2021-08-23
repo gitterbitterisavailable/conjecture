@@ -57,8 +57,8 @@ class Application(tk.Frame):
 
  #turtleCanvas widget
      
-        canvaswid = 500 
-        canvashi = 500 
+        canvaswid = 1000 
+        canvashi = 1000 
         fac = tk.Canvas(self,width=canvaswid,height=canvashi)
         fac.grid(stick=E)
         self.turd = RawTurtle(fac)
